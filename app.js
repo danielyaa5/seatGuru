@@ -6,6 +6,7 @@ const fs = require('fs');
 
 const HomeUrl = 'https://www.seatguru.com';
 const browseAirlinesUrl = 'https://www.seatguru.com/browseairlines/browseairlines.php';
+const apiUrl = 'http://127.0.0.1:3001/api/o/vecihi.airlines';
 
 class SeatGuru {
   constructor() {
@@ -34,10 +35,26 @@ class SeatGuru {
     });
   }
 
+  postRequest(url, form) {
+    return new Promise((resolve, reject) => {
+      request.post({
+        url,
+        form,
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      }, (err, httpResponse, body) => {
+        if (err) {
+          console.error('upload failed:', err);
+          throw err;
+        }
+        resolve(body);
+        console.log('Post successful!  Server responded with:', body);
+      });
+    });
+  }
+
   // run All url's request
   allRequest(urls) {
     return new Promise((resolve, reject) => {
-      const arr = [];
       const limit = 4;
       async.eachLimit(urls, limit, (file, cb) => {
         this.request(HomeUrl + file)
@@ -51,18 +68,19 @@ class SeatGuru {
             const name = obj.airlineName.replace(' ', '_');
             const shortname = obj.imgUrl.split('/')[8];
             const dest = this.dir + name + '_' + shortname;
+            const formData = {
+              name: obj.airlineName,
+              image: dest,
+              short_code: shortname,
+            };
             this.download(url, dest)
-            .then(() => {
-              const lastObj = obj;
-              lastObj.localUrl = dest;
-              arr.push(lastObj);
-              cb();
-            });
+            .then(() => this.postRequest(apiUrl, formData)) // post request to api
+            .then(() => { cb(); });
           });
         });
       }, (err) => {
         if (err) throw err;
-        resolve(arr);
+        resolve('All process finished!');
       });
     });
   }
