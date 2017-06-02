@@ -5,6 +5,7 @@
     ],
     "rules": {
         "no-unused-vars": 1,
-        "class-methods-use-this": 0
+        "class-methods-use-this": 0,
+        "prefer-template": 0
     }
 }

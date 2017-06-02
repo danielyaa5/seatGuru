@@ -13,6 +13,8 @@
     "cheerio": "^1.0.0-rc.1",
     "eslint": "^3.19.0",
     "express": "^4.15.3",
+    "fs": "0.0.1-security",
+    "image-downloader": "^3.2.1",
     "mongoose": "^4.10.4",
     "request": "^2.81.0"
   },
