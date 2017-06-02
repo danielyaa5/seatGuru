@@ -1,0 +1,24 @@
+{
+  "name": "seatguru",
+  "version": "1.0.0",
+  "description": "get All Airlines information",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emrullah Karataş",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.4.1",
+    "cheerio": "^1.0.0-rc.1",
+    "eslint": "^3.19.0",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.4",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0"
+  }
+}
