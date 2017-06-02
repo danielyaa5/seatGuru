@@ -66,12 +66,12 @@ class SeatGuru {
             // download images to local
             const url = obj.imgUrl;
             const name = obj.airlineName.replace(' ', '_');
-            const shortname = obj.imgUrl.split('/')[8];
-            const dest = this.dir + name + '_' + shortname;
+            const image = obj.imgUrl.split('/')[8];
+            const dest = this.dir + name + '_' + image;
             const formData = {
               name: obj.airlineName,
               image: dest,
-              short_code: shortname,
+              short_code: obj.airlineCode,
             };
             this.download(url, dest)
             .then(() => this.postRequest(apiUrl, formData)) // post request to api
